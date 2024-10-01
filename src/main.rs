@@ -345,6 +345,10 @@ enum PermissionCommand {
         /// Whether the permission allows the file to be discovered through search. This is only applicable for permissions of type domain or anyone
         #[arg(long)]
         discoverable: bool,
+
+        /// Notification message
+        #[arg(long)]
+        notify: Option<String>,
     },
 
     /// List permissions for a file
@@ -669,6 +673,7 @@ async fn main() {
                     discoverable,
                     email,
                     domain,
+                    notify,
                 } => {
                     // fmt
                     permissions::share(permissions::share::Config {
@@ -678,6 +683,7 @@ async fn main() {
                         discoverable,
                         email,
                         domain,
+                        notify,
                     })
                     .await
                     .unwrap_or_else(handle_error)
