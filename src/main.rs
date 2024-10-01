@@ -201,7 +201,7 @@ enum FileCommand {
         #[arg(long, value_name = "1|2|4|8|16|32|64|128|256|512|1024|4096|8192", default_value_t = ChunkSize::default())]
         chunk_size: ChunkSize,
 
-        /// Print errors occuring during chunk upload
+        /// Print errors occurring during chunk upload
         #[arg(long, value_name = "", default_value_t = false)]
         print_chunk_errors: bool,
 
@@ -216,7 +216,7 @@ enum FileCommand {
 
     /// Update file. This will create a new version of the file. The older versions will typically be kept for 30 days.
     Update {
-        /// File id of the file you want ot update
+        /// File id of the file you want to update
         file_id: String,
 
         /// Path of file to upload
@@ -230,7 +230,7 @@ enum FileCommand {
         #[arg(long, value_name = "1|2|4|8|16|32|64|128|256|512|1024|4096|8192", default_value_t = ChunkSize::default())]
         chunk_size: ChunkSize,
 
-        /// Print errors occuring during chunk upload
+        /// Print errors occurring during chunk upload
         #[arg(long, value_name = "", default_value_t = false)]
         print_chunk_errors: bool,
 
