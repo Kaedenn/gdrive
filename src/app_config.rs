@@ -1,5 +1,6 @@
 use serde::Deserialize;
 use serde::Serialize;
+use std::env;
 use std::error;
 use std::fmt::Display;
 use std::fmt::Formatter;
@@ -12,6 +13,9 @@ const BASE_PATH_DIR_NAME: &str = "gdrive3";
 const ACCOUNT_CONFIG_NAME: &str = "account.json";
 const SECRET_CONFIG_NAME: &str = "secret.json";
 const TOKENS_CONFIG_NAME: &str = "tokens.json";
+
+// Environment variable to change the gdrive config directory
+const GDRIVE_BASE_ENV: &str = "GDRIVE_BASE";
 
 #[derive(Debug, Clone)]
 pub struct AppConfig {
@@ -157,6 +161,10 @@ impl AppConfig {
     }
 
     pub fn default_base_path() -> Result<PathBuf, Error> {
+        if let Ok(env_base) = env::var(GDRIVE_BASE_ENV) {
+            return Ok(PathBuf::from(env_base));
+        }
+
         let home_path = home::home_dir().ok_or(Error::HomeDirNotFound)?;
         let base_path = home_path
             .join(SYSTEM_CONFIG_DIR_NAME)

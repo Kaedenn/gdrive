@@ -16,7 +16,8 @@ pub struct Config {
     pub discoverable: bool,
     pub email: Option<String>,
     pub domain: Option<String>,
-    pub notify: Option<String>,
+    pub disable_notify: bool,
+    pub notify_message: Option<String>,
 }
 
 impl Config {
@@ -80,8 +81,8 @@ pub async fn create_permission(
         .add_scope(google_drive3::api::Scope::Full)
         .delegate(&mut delegate)
         .supports_all_drives(true)
-        .send_notification_email(!config.notify.is_none())
-        .email_message(&config.notify.clone().unwrap_or_default())
+        .send_notification_email(!config.disable_notify)
+        .email_message(&config.notify_message.clone().unwrap_or_default())
         .doit()
         .await?;
 

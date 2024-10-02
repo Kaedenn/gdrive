@@ -346,9 +346,13 @@ enum PermissionCommand {
         #[arg(long)]
         discoverable: bool,
 
+        /// Don't notify users of sharing operations
+        #[arg(long)]
+        disable_notify: bool,
+
         /// Notification message
         #[arg(long)]
-        notify: Option<String>,
+        notify_message: Option<String>,
     },
 
     /// List permissions for a file
@@ -673,7 +677,8 @@ async fn main() {
                     discoverable,
                     email,
                     domain,
-                    notify,
+                    disable_notify,
+                    notify_message,
                 } => {
                     // fmt
                     permissions::share(permissions::share::Config {
@@ -683,7 +688,8 @@ async fn main() {
                         discoverable,
                         email,
                         domain,
-                        notify,
+                        disable_notify,
+                        notify_message,
                     })
                     .await
                     .unwrap_or_else(handle_error)
